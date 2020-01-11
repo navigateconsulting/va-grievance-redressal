@@ -1,0 +1,62 @@
+intents:
+- greet
+- negative
+- provide_name_and_city
+- provide_mobile_and_email
+- provide_only_name
+- provide_only_city
+- provide_only_mobile
+- provide_only_email
+- central_board_of_direct_taxes_income_tax
+- department_of_financial_services_banking_division
+- department_of_posts
+- department_of_telecommunications
+- ministry_of_railways_railway_board
+
+
+actions:
+- utter_default
+- utter_ask_rephrase
+- utter_greet
+- utter_ask_mobile_and_email
+- utter_ask_grievance
+- utter_ask_city_if_not_provided
+- utter_ask_name_if_not_provided
+- utter_ask_email_if_not_provided
+- utter_ask_mobile_if_not_provided
+- utter_log_grievance
+- action_grievance_department
+
+
+templates:
+  utter_default:
+  - text: "Sorry, I did not understand"
+
+  utter_ask_rephrase:
+  - text: "Could you please rephrase that?"
+
+  utter_greet:
+  - text: "Hi, I am your VA Grievance Bot, here to log your grievance. To start with let me know your name & city"
+
+  utter_ask_mobile_and_email:
+  - text: "I would also require your basic contact details such and mobile number and email id"
+
+  utter_ask_grievance:
+  - text: "Alright, we are good to go. Now can you let me know your issue."
+
+  utter_ask_city_if_not_provided:
+  - text: "Great {complainant_name} , can you also provide me your city"
+
+  utter_ask_name_if_not_provided:
+  - text: "Great, can you please let me know your name as well?"
+
+  utter_ask_email_if_not_provided:
+  - text: "Can you feed me with your email address as well?"
+
+  utter_ask_mobile_if_not_provided:
+  - text: "Can you feed me with your mobile info as well?"
+
+  utter_log_grievance:
+  - text: "Your grievance for the respective department has been logged."
+
+

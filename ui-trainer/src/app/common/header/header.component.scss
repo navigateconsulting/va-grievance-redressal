@@ -1,0 +1,44 @@
+@import '../../../scss/styles';
+
+.material-icons {
+    cursor: pointer;
+}
+.header {
+    overflow: hidden;
+    height: 50px;
+}
+.header-black {
+    background-image: $global_gradient_header;
+}
+.header-color {
+    background-color: #0968B5;
+}
+.eva-logo-div {
+    width: 40%;
+    height: 100%;
+}
+.logo-div {
+    position: relative;
+    height: 100%;
+    cursor: pointer;
+}
+.logo-div img {
+    height: 45px;
+    width: 60px;
+    position: absolute;
+    top: 50%;
+    left: 11%;
+    transform: translate(-50%, -50%);
+}
+.header-text {
+    color: white; 
+    font-size: 33px;
+    margin-left: 20px;
+}
+.header-buttons {
+    padding: 0;
+}
+.header-icons {
+    width: 35px;
+    height: 50px;
+}

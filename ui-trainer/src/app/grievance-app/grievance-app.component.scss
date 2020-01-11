@@ -1,0 +1,57 @@
+body {
+  overflow-y: hidden;
+}
+.nav-grievance {
+  /*background-color: #ef464c;*/
+  background: linear-gradient(
+    to bottom,
+    #d3e7ff 0%,
+    #bbd8fa 49%,
+    #bbd8fa 51%,
+    #207cca 51%,
+    #bbd8fa 51%,
+    #a4caf5 100%
+  );
+  height: 70px;
+}
+.h1 {
+  font-family: "Lato", sans-serif;
+  font-size: 30px;
+}
+#banner {
+  background-image: linear-gradient(
+    to right,
+    #552586,
+    #6a359c,
+    #804fb3,
+    #9969c7,
+    #b589d6
+  );
+  height: 700px;
+}
+.padding-1 {
+  margin: 0px 20px 20px 50px;
+}
+.padding-2 {
+  margin: 20px 80px 20px 50px;
+}
+.padding-3 {
+  margin: 30px 20px 20px 50px;
+}
+.padding-4 {
+  margin: 40px 80px 40px 50px;
+}
+.text-size {
+  font-size: 80px;
+  color: white;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #ef464c;
+  color: #efefef;
+  text-align: center;
+  height: 50px;
+}

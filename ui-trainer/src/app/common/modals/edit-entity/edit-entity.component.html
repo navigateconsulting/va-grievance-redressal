@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-md-8">
+    <h1 mat-dialog-title>Edit Entity Details</h1>
+  </div>
+  <div class="col-md-4 text-right">
+    <button *ngIf="appSource==='enterprise'" mat-raised-button class="remove-entity-button" (click)="removeEntity()">Delete Entity</button>
+    <button *ngIf="appSource==='open'" mat-raised-button class="remove-entity-button-black" (click)="removeEntity()">Delete Entity</button>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<br />
+<div mat-dialog-content>
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Entity</mat-label>
+      <input matInput disabled [(ngModel)]="entityName">
+    </mat-form-field>
+  </div>
+  <div class="row entity-values">
+    <mat-form-field appearance="outline">
+      <mat-label>Entity Description</mat-label>
+      <textarea matInput maxlength="140" [(ngModel)]="entityDescription" autofocus></textarea>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <span class="mat-body-strong">Select Entity Slot Type</span>
+  </div>
+  <div *ngIf="appSource==='enterprise'">
+    <mat-radio-group [(ngModel)]="entitySlotType">
+      <mat-radio-button value="text" (change)="setEntitySlotType($event)">text</mat-radio-button>
+      <mat-radio-button value="bool" (change)="setEntitySlotType($event)">bool</mat-radio-button>
+      <mat-radio-button value="categorical" (change)="setEntitySlotType($event)">categorical</mat-radio-button>
+      <mat-radio-button value="float" (change)="setEntitySlotType($event)">float</mat-radio-button>
+      <mat-radio-button value="list" (change)="setEntitySlotType($event)">list</mat-radio-button>
+      <mat-radio-button value="unfeaturized" (change)="setEntitySlotType($event)">unfeaturized</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div *ngIf="appSource==='open'">
+    <mat-radio-group [(ngModel)]="entitySlotType">
+      <mat-radio-button value="text" (change)="setEntitySlotType($event)">text</mat-radio-button>
+      <mat-radio-button value="bool" (change)="setEntitySlotType($event)">bool</mat-radio-button>
+      <mat-radio-button value="categorical" (change)="setEntitySlotType($event)">categorical</mat-radio-button>
+      <mat-radio-button value="float" (change)="setEntitySlotType($event)">float</mat-radio-button>
+      <mat-radio-button value="list" (change)="setEntitySlotType($event)">list</mat-radio-button>
+      <mat-radio-button value="unfeaturized" (change)="setEntitySlotType($event)">unfeaturized</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div *ngIf="entitySlotType==='categorical'" class="row entity-values">
+    <mat-form-field appearance="outline">
+      <mat-label>Entity Slot Value</mat-label>
+      <textarea matInput [(ngModel)]="categorical_values"></textarea>
+    </mat-form-field>
+    <span class="mat-caption">Values separated by a comma, ie: New York,NYC,NY</span>
+  </div>
+  <div *ngIf="entitySlotType==='float'" class="row">
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>min_value</mat-label>
+        <input matInput [(ngModel)]="min_value">
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>max_value</mat-label>
+        <input matInput [(ngModel)]="max_value">
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div class="row">
+  <div class="col-md-7">
+  </div>
+  <div class="col-md-5">
+    <div mat-dialog-actions>
+      <div class="col-md-6">
+        <button mat-raised-button mat-dialog-close>Cancel</button>
+      </div>
+      <div class="col-md-6 text-right">
+        <button *ngIf="appSource==='enterprise'" mat-raised-button class="entity-save-button" (click)="saveEntitySlotDetails()">Save</button>
+        <button *ngIf="appSource==='open'" mat-raised-button class="entity-save-button-black" (click)="saveEntitySlotDetails()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

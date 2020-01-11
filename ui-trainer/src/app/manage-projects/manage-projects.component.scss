@@ -1,0 +1,93 @@
+@import '../../scss/styles';
+
+.projects-container {
+    padding: 1%;
+    overflow-x: hidden;
+    height: 100%;
+}
+.add-project {
+    height: 10%;
+    padding: 0.5%;
+}
+.projects-table-container {
+    height: 75%;
+    padding: 0.5%;
+    overflow-y: auto;
+}
+table {
+    width: 100%;
+}
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+.mat-column-icon{
+    width: 5%;
+}
+.mat-column-project_name{
+    width: 10%;
+}
+.mat-column-padding1{
+    width: 1%;
+}
+.mat-column-project_description {
+    width: 35%;
+}
+.mat-column-padding2{
+    width: 1%;
+}
+.mat-column-created_by {
+    width: 10%;
+}
+.mat-column-state {
+    width: 10%;
+}
+.mat-column-source {
+    width: 6%;
+}
+.mat-column-edit {
+    width: 5%;
+}
+.mat-column-delete {
+    width: 5%;
+}
+.mat-column-copy {
+    width: 5%;
+}
+.mat-column-try_now {
+    width: 7%;
+}
+.mat-row:hover {
+    background-color: #eee;
+}
+.project_name_text:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.edit_remove {
+    cursor: pointer;
+}
+.modify_content {
+    position: fixed;
+    bottom: 3%;
+    width: 100%;
+}
+.property-panel {
+    margin: 0;
+    padding: 0;
+}
+.property-panel-components {
+    margin: 0;
+    padding: 5%;
+}
+.mat-paginator-sticky {
+    bottom: 0px;
+    position: sticky;
+    z-index: 10;
+}
+.add-project-button-color {
+    background-image: $global_gradient;
+}
+.add-project-button-black {
+    background-image: $global_gradient_black;
+}

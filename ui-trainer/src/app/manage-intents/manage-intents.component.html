@@ -1,0 +1,103 @@
+<div class="intent-container">
+  <div class="row manage-map-intent-row">
+    <div class="col-md-6">
+      <span class="mat-subheading-2"><b>Intent Description: </b></span>
+      <span *ngIf="currentIntent">{{currentIntent.intent_description}}</span>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Select Entity</mat-label>
+        <input type="text" class="entity-auto-complete" #trigger="matAutocompleteTrigger" (blur)="closeAutoCompPanel()" aria-label="Entity" [(ngModel)]="entity_value" matInput [formControl]="entitiesControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)='getEntityValue($event.option.value)'>
+          <mat-option *ngFor="let option of entityfilteredOptions | async" [value]="option.entity_name">
+            {{option.entity_name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div *ngIf="show_invalid_entity_error" class="error">Invalid Entity</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="example-form-field" appearance="outline">
+        <mat-label>New Intent Text</mat-label>
+        <textarea matInput type="text" [(ngModel)]="new_intent_text" (keyup)="disableQuotes($event)" (keydown.enter)="addIntentTextElement($event)"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field class="intent-text-filter" appearance="outline">
+        <mat-label>Filter Intent Text</mat-label>
+        <input matInput (keyup)="applyMapFilter($event.target.value)">
+      </mat-form-field>
+    </div>
+  </div>
+  <div *ngIf="text_entities.length===0 && text_entities_backup.length===0" class="row empty-intent-text">
+    <div class="col-md-12">
+      <div class="alert alert-info">
+        <strong>Info!</strong> Atleast one intent should be defined.
+      </div>
+    </div>
+  </div>
+  <div *ngIf="text_entities.length===0 && text_entities_backup.length!==0" class="row empty-intent-text">
+    <div class="col-md-12">
+      <div class="alert alert-warning">
+        <strong>Warning!</strong> No Matching Intent Texts.
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div id="accordion">
+      <div *ngIf="currentIntent">
+        <div class="card" *ngFor="let text_entity of text_entities; let i = index;">
+          <div class="card-header" id="intentText_heading_{{i}}">
+            <div class="row">
+              <div class="col-md-10">
+                <span class="intent-text" id="intent_text_{{i}}" (mouseup)="mouseUpFunction($event, i, text_entity.text, text_entity.entities)">{{text_entity.text}}</span>
+                <span matBadge="{{text_entity.entities.length}}" matBadgeColor="#FFFFFF" matBadgeOverlap="false" class="mat-body-strong"></span>
+              </div>
+              <div class="col-md-1 text-right">
+                <button mat-icon-button (click)="removeIntentTextElement(text_entity.text, text_entity.entities)">
+                  <mat-icon *ngIf="appSource==='enterprise'" svgIcon="delete"></mat-icon>
+                  <mat-icon *ngIf="appSource==='open'" svgIcon="delete-black"></mat-icon>
+                </button>
+              </div>
+              <div class="col-md-1 text-right">
+                <button class="btn btn-link" data-toggle="collapse" aria-expanded="false" attr.data-target="#intentText_{{i}}" aria-expanded="true" attr.aria-controls="intentText_{{i}}">
+                  <mat-icon *ngIf="appSource==='enterprise'" class="key_arrow_down">keyboard_arrow_down</mat-icon>
+                  <mat-icon *ngIf="appSource==='open'" class="key_arrow_down_black">keyboard_arrow_down</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="intentText_{{i}}" class="collapse" attr.aria-labelledby="intentText_heading_{{i}}" data-parent="#accordion">
+            <div class="card-body">
+              <table class="table table-striped" id="intent_text_table_{{i}}">
+                <thead>
+                  <tr>
+                    <th class="mat-body-strong" scope="col">Parameter Name</th>
+                    <th class="mat-body-strong" scope="col">Entity</th>
+                    <th class="mat-body-strong" scope="col">Resolved Value</th>
+                    <th class="mat-body-strong" scope="col">Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let entity of text_entity.entities; let j = index;" (mouseenter)="highlightTextEntity(entity.start,entity.end,i)" (mouseleave)="unhighlightTextEntity(i)">
+                    <td>{{text_entity.text.substring(entity.start,entity.end)}}</td>
+                    <td>{{entity.entity}}</td>
+                    <td>{{entity.value}}</td>
+                    <td>
+                      <button mat-icon-button (mouseenter)="unhighlightTextEntity(i)" (mouseleave)="highlightTextEntity(entity.start,entity.end,i)" (click)="removeEntityElement(i, text_entity.text, text_entity.entities, j)">
+                        <mat-icon *ngIf="appSource==='enterprise'" svgIcon="delete"></mat-icon>
+                        <mat-icon *ngIf="appSource==='open'" svgIcon="delete-black"></mat-icon>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+@import '../../scss/styles';
+
+.full-height {
+    height: 100%;
+    overflow-y: hidden;
+}
+.trainer-container {
+    width: 100%;
+    background-color: inherit;
+    height: 100%;
+} 
+.main-container {
+    overflow-y: hidden;
+}
+.toolbar-div {
+    max-height: 50px;
+    padding: 0;
+}
+.breadcrumb-div {
+    padding: 0;
+}
+.breadcrumb {
+    background-color: inherit;
+    height: 50px;
+}
+/* Style to change separator  */
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+    padding-left: $breadcrumb-padding;
+    padding-right: $breadcrumb-padding;
+}
+.breadcrumb-element {
+    color: $breadcrumb-font-color;
+    font-size: $breadcrumb-font-size;
+    line-height: $breadcrumb-line-height;
+}
+.breadcrumb-element {
+    cursor: pointer;
+}
+.show-entities-div {
+    background-color: inherit;
+    position: relative;
+    height: 50px;
+    padding: 0;
+    margin-top: -16px;
+}
+.property-panel-container {
+    width: 350px;
+}
+.property-panel-row {
+    padding: 0;
+    margin: 0;
+}
+.property-panel {
+    margin: 0;
+    padding: 0;
+}
+.property-panel-components {
+    margin: 0;
+    padding: 5%;
+}
+.prop-panel-text {
+    padding: 2%;
+    color: $breadcrumb-font-color;
+    font-size: $breadcrumb-font-size;
+    line-height: $breadcrumb-line-height;
+}
+.show-entity-chip {
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 41%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.show-entity-chip-color {
+    background-color: $primary-color-4;
+}
+.show-entity-chip-black {
+    background-image: $global_gradient_black;
+}
+.entities-button {
+    background-color: $primary-color-3;
+    color: white;
+    font-weight: bold;
+}
+.actions-button {
+    background-color: $primary-color-1;
+    color: white;
+    font-weight: bold;
+}
+.app-prop-button {
+    background-color: $primary-color-4;
+    color: white;
+    font-weight: bold;
+}

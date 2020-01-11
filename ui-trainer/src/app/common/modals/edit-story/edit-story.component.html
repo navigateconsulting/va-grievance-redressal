@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-9">
+    <h1 mat-dialog-title>Edit Story</h1>
+  </div>
+  <div class="col-md-3 text-right">
+    <mat-icon *ngIf="appSource==='enterprise'" class="dialog-icon" svgIcon="story"></mat-icon>
+    <mat-icon *ngIf="appSource==='open'" class="dialog-icon" svgIcon="story-black"></mat-icon>
+  </div>
+</div>
+<form [formGroup]="editStoryForm" (ngSubmit)="closeDialog()">
+<mat-dialog-content>
+  <mat-form-field class="dialog-full-width" appearance="outline">
+    <mat-label>Story Name</mat-label>
+    <input matInput (keydown.space)="$event.preventDefault()" maxlength="30" onPaste="return false" autocomplete="off" formControlName="storyName" autofocus>
+  </mat-form-field>
+  <br />
+  <mat-form-field class="dialog-full-width" appearance="outline">
+    <mat-label>Story Description</mat-label>
+    <textarea matInput maxlength="140" formControlName="storyDescription"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <div class="row" style="width: 100%;">
+    <div class="col-md-6 text-right">
+      <button *ngIf="appSource==='enterprise'" mat-raised-button type="submit" class="submit-button" [disabled]="!editStoryForm.valid">Confirm</button>
+      <button *ngIf="appSource==='open'" mat-raised-button type="submit" class="submit-button-black" [disabled]="!editStoryForm.valid">Confirm</button>
+    </div>
+    <div class="col-md-6 text-center">
+      <button mat-raised-button mat-dialog-close class="cancel-button">Cancel</button>
+    </div>
+  </div>
+</mat-dialog-actions>
+</form>

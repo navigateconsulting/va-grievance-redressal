@@ -1,0 +1,91 @@
+<div class="trynow-container">
+  <div class="row try-now-frame">
+    <div class="col-md-8 left">
+      <div class="user-bot-chat">
+        <div *ngFor="let chat of chats; let i = index">
+          <div
+            *ngIf="chat.event === 'user'"
+            class="row user-message"
+            id="chat-{{ i }}"
+          >
+            <div class="col-md-12">
+              <div class="user-box">
+                <div
+                  color="white"
+                  font-size="4"
+                  class="user user-color"
+                >
+                  M
+                </div>
+              </div>
+              <div class="user-box">
+                <div
+                  font-size="2"
+                  letter-spacing="0"
+                  class="user-chat user-chat-color"
+                >
+                  <span [innerHtml]="chat.text"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            *ngIf="chat.event === 'bot'"
+            class="row bot-message"
+            id="chat-{{ i }}"
+          >
+            <div class="col-md-12">
+              <div class="bot-box">
+                <div
+                  color="white"
+                  font-size="4"
+                  class="bot bot-color"
+                >
+                  B
+                </div>
+              </div>
+              <div class="bot-box">
+                <div font-size="2" letter-spacing="0" class="bot-chat">
+                  <span [innerHtml]="chat.text"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 right">
+      <br />
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <b
+                >Grievance Slot Values:
+              </b
+              >
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <br />
+          <table
+            *ngIf="grievance_json"
+            class="table table-striped"
+          >
+            <thead>
+              <tr>
+                <th scope="col">Key</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of grievance_json | keyvalue">
+                <th scope="row">{{ item.key }}</th>
+                <td>{{ item.value }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>

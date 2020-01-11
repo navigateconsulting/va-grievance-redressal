@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-9">
+    <h1 mat-dialog-title>Delete Intent</h1>
+  </div>
+  <div class="col-md-3 text-right">
+    <mat-icon *ngIf="appSource==='enterprise'" class="dialog-icon" svgIcon="intent"></mat-icon>
+    <mat-icon *ngIf="appSource==='open'" class="dialog-icon" svgIcon="intent-black"></mat-icon>
+  </div>
+</div>
+<mat-dialog-content>
+  <h4 class="mat-subheading-1">Are you sure you want to delete?</h4>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <div class="row" style="width: 100%;">
+    <div class="col-md-6 text-right">
+      <button *ngIf="appSource==='enterprise'" mat-raised-button (click)="confirmDelete()" class="submit-button">Confirm</button>
+      <button *ngIf="appSource==='open'" mat-raised-button (click)="confirmDelete()" class="submit-button-black">Confirm</button>
+    </div>
+    <div class="col-md-6 text-center">
+      <button mat-raised-button mat-dialog-close class="cancel-button">Cancel</button>
+    </div>
+  </div>
+</mat-dialog-actions>

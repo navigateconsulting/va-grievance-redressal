@@ -1,0 +1,57 @@
+@import '../../scss/styles';
+
+.grievance-container {
+    padding: 1%;
+    overflow-x: hidden;
+    height: 100%;
+}
+.grievance-table-container {
+    height: 80%;
+    padding: 0.5%;
+    overflow-y: auto;
+}
+table {
+    width: 100%;
+}
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+.mat-column-complainant_name{
+    width: 16%;
+}
+.mat-column-complainant_city {
+    width: 16%;
+}
+.mat-column-complainant_mobile {
+    width: 16%;
+}
+.mat-column-complainant_email {
+    width: 16%;
+}
+.mat-column-ministry_department {
+    width: 16%;
+}
+.mat-column-grievance_issue {
+    width: 16%;
+}
+.mat-column-icon{
+    width: 4%;
+}
+.mat-row:hover {
+    background-color: #eee;
+}
+.modify_content {
+    position: fixed;
+    bottom: 3%;
+    width: 100%;
+}
+.mat-paginator-sticky {
+    bottom: 0px;
+    position: sticky;
+    z-index: 10;
+}
+.grievance_id:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

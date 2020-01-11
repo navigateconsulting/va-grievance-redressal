@@ -1,0 +1,49 @@
+.place_div_center {
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+    margin: auto;
+    text-align: -webkit-center;
+}
+.trainer-loader {
+	width: 200px;
+	height: 200px;
+}
+.spinner-text {
+    margin-top: 5%;
+    color: white;
+}
+.animated {
+	-webkit-animation-duration: .5s;
+	animation-duration: .5s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-timing-function: linear;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+}
+@-webkit-keyframes bounce {
+	0%, 100% {
+		-webkit-transform: translateY(0);
+	}
+	50% {
+		-webkit-transform: translateY(-15px);
+	}
+}
+@keyframes bounce {
+	0%, 100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-15px);
+	}
+}
+.bounce {
+	-webkit-animation-name: bounce;
+	animation-name: bounce;
+}

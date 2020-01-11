@@ -1,0 +1,62 @@
+<h1 mat-dialog-title>Add Entity Details For: {{entity_name}}</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <div class="row entity-values">
+    <mat-form-field appearance="outline">
+      <mat-label>Entity Description</mat-label>
+      <textarea matInput maxlength="140" [(ngModel)]="entity_desc" #entityDescription="matInput"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <span class="mat-body-strong">Select Entity Slot Type</span>
+  </div>
+  <div class="row">
+    <mat-radio-group>
+      <mat-radio-button value="text" (change)="setEntitySlotType($event)">text</mat-radio-button>
+      <mat-radio-button value="bool" (change)="setEntitySlotType($event)">bool</mat-radio-button>
+      <mat-radio-button value="categorical" (change)="setEntitySlotType($event)">categorical</mat-radio-button>
+      <mat-radio-button value="float" (change)="setEntitySlotType($event)">float</mat-radio-button>
+      <mat-radio-button value="list" (change)="setEntitySlotType($event)">list</mat-radio-button>
+      <mat-radio-button value="unfeaturized" (change)="setEntitySlotType($event)">unfeaturized</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div *ngIf="show_entity_error" class="error">Kindly select an entity slot type.</div>
+  <div *ngIf="entitySlotType==='categorical'" class="row entity-values">
+    <mat-form-field appearance="outline">
+      <mat-label>Entity Slot Value</mat-label>
+      <textarea matInput [(ngModel)]="categorical_values"></textarea>
+    </mat-form-field>
+    <span class="mat-caption">Values separated by a comma, ie: New York,NYC,NY</span>
+    <div *ngIf="show_cat_error" class="error">Entity slot values cannot end with a comma.</div>
+  </div>
+  <div *ngIf="entitySlotType==='float'" class="row">
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>min_value</mat-label>
+        <input matInput [(ngModel)]="min_value">
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>max_value</mat-label>
+        <input matInput [(ngModel)]="max_value">
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div class="row">
+  <div class="col-md-7">
+  </div>
+  <div class="col-md-5">
+    <div mat-dialog-actions>
+      <div class="col-md-6 text-left">
+        <button mat-raised-button mat-dialog-close>Cancel</button>
+      </div>
+      <div class="col-md-6 text-left">
+        <button *ngIf="appSource==='enterprise'" mat-raised-button class="entity-save-button" (click)="saveEntitySlotDetails()">Confirm</button>
+        <button *ngIf="appSource==='open'" mat-raised-button class="entity-save-button-black" (click)="saveEntitySlotDetails()">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>

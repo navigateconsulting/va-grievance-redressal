@@ -1,0 +1,187 @@
+<div class="story-container">
+  <div class="row">
+    <div class="col-md-12">
+      <div *ngIf="currentStory" class="place_div_center">
+        <form [formGroup]="storyForm">
+          <div class="row story-description-box">
+            <div class="col-md-12">
+              <span class="mat-subheading-2"><b>Story Description: </b></span>
+              <span *ngIf="currentStory">{{currentStory.story_description}}</span>
+            </div>
+          </div>
+          <br />
+          <div *ngIf="show_intent_error===true" class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error !</strong> Story cannot start with a response.
+          </div>
+          <div *ngIf="show_ir_error===true" class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error !</strong> Kindly fill in all required fields.
+          </div>
+          <div class="story-main-box">
+            <div class="row story-box">
+              <div class="col-md-12 inside-story-box">
+                <table class="story-table">
+                  <tr class="story-table-row" formArrayName="intents_responses" *ngFor="let intent_response of storyForm.get('intents_responses')['controls']; let ind = index">
+                    <td>
+                      <div class="row" *ngIf="intent_response.get('type')['value']==='intent'">
+                        <div id="accordion-intent-{{ind}}" class="col-md-6 accordion-intent-class" formGroupName="{{ind}}">
+                          <div class="card shadow-sm bg-white rounded">
+                            <div class="card-header" id="headingIntent_{{ind}}">
+                              <div class="row">
+                                <div class="col-md-8">
+                                  <mat-form-field class="intent-textbox">
+                                    <textarea matInput id="intent_text_{{ind}}" (keydown)="handleSpacebar($event)" (keydown.enter)="$event.preventDefault()" (blur)="validateIntentInput(ind, $event)" formControlName="value" [matAutocomplete]="intent_auto"></textarea>
+                                    <mat-autocomplete #intent_auto="matAutocomplete" id="intent_auto_complete">
+                                      <mat-option *ngFor="let option of intentsfilteredOptions" (mousedown)="onIntentResponseEntityChange($event, ind, option.intent_name, option.intent_text, 'intent', intent_response_entity_arr[ind])" [value]="option.intent_text">
+                                        <span>{{option.intent_text}}</span> |
+                                        <small>{{option.intent_name}}</small>
+                                      </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-error *ngIf="intent_response.get('value').hasError('invalid')">
+                                      Invalid Intent
+                                    </mat-error>
+                                  </mat-form-field>
+                                  <input type="hidden" id="intent_{{ind}}" formControlName="key">
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="row intent-buttons-box">
+                                    <div class="col-md-3">
+                                      <button class="intent-buttons" [ngClass]="(appSource==='open')?'intent-black-button':'intent-color-button'" mat-mini-fab matTooltip="Add Intent" (click)="addIntentResponseDetailsToStory('intent', ind+1)">
+                                        <mat-icon *ngIf="appSource==='enterprise'">add</mat-icon>
+                                        <mat-icon *ngIf="appSource==='open'">add_circle_outline</mat-icon>
+                                      </button>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <button class="intent-buttons" [ngClass]="(appSource==='open')?'intent-black-button':'intent-color-button'" mat-mini-fab matTooltip="Remove Intent" (click)="removeIntentResponseFromStory(ind, intent_response, intent_response_entity_arr[ind])">
+                                        <mat-icon *ngIf="appSource==='enterprise'">remove</mat-icon>
+                                        <mat-icon *ngIf="appSource==='open'">highlight_off</mat-icon>
+                                      </button>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <button class="intent-buttons" [ngClass]="(appSource==='open')?'ir-black-button':'ir-color-button'" mat-mini-fab (focusout)="collapse_close('intent', ind)" data-toggle="collapse" attr.data-target="#collapseIntent_{{ind}}" aria-expanded="false" attr.aria-controls="collapseIntent_{{ind}}" matTooltip="Show Entities">
+                                        <mat-icon *ngIf="appSource==='enterprise'">keyboard_arrow_down</mat-icon>
+                                        <mat-icon *ngIf="appSource==='open'">expand_more</mat-icon>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        
+                            <div id="collapseIntent_{{ind}}" class="collapse" attr.aria-labelledby="headingIntent_{{ind}}" attr.data-parent="#accordion-intent-{{ind}}">
+                              <div class="card-body">
+                                <mat-form-field class="entity-textbox">
+                                  <input type="text" placeholder="Add Entity" (keydown)="handleSpacebar($event)" (keydown.enter)="$event.preventDefault()" matInput [formControl]="entityControl" name="intent_entity_{{ind}}" [matAutocomplete]="auto">
+                                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayEntityWith">
+                                    <mat-option *ngFor="let option of entitiesfilteredOptions | async" (mousedown)="onEntityChange($event, ind, intent_response)" [value]="option">
+                                      {{option.entity_name}}:{{option.entity_value}}
+                                    </mat-option>
+                                  </mat-autocomplete>
+                                  <mat-error *ngIf="entityControl.hasError('invalid')">
+                                    Invalid Entity
+                                  </mat-error>
+                                </mat-form-field>
+                                <div class="entities-box">
+                                  <mat-chip-list>
+                                    <mat-chip color="warn" selected *ngFor="let entity of intent_response_entity_arr[ind]; let ind_ent = index" [selectable]="selectable" [removable]="removable" (removed)="removeEntityFromIntentResponse(intent_response, ind, intent_response_entity_arr[ind], ind_ent)">
+                                      {{entity.entity_name}}:{{entity.entity_value}}
+                                      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                    </mat-chip>
+                                  </mat-chip-list>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                      </div>
+                      <div class="row" *ngIf="intent_response.get('type')['value']==='response'">
+                        <div class="col-md-6"></div>
+                        <div id="accordion-response-{{ind}}" class="col-md-6 accordion-response-class" formGroupName="{{ind}}">
+                          <div class="card shadow-sm bg-white rounded">
+                            <div class="card-header" id="headingResponse_{{ind}}">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <div class="row response-buttons-box">
+                                    <div class="col-md-4">
+                                      <button class="response-buttons" [ngClass]="(appSource==='open')?'ir-black-button':'ir-color-button'" mat-mini-fab (focusout)="collapse_close('response', ind)" data-toggle="collapse" attr.data-target="#collapseResponse_{{ind}}" aria-expanded="false" attr.aria-controls="collapseResponse_{{ind}}" matTooltip="Show Entities">
+                                        <mat-icon *ngIf="appSource==='enterprise'">keyboard_arrow_down</mat-icon>
+                                        <mat-icon *ngIf="appSource==='open'">expand_more</mat-icon>
+                                      </button>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <button class="response-buttons" [ngClass]="(appSource==='open')?'response-black-button':'response-color-button'" mat-mini-fab matTooltip="Remove Response" (click)="removeIntentResponseFromStory(ind, intent_response)">
+                                        <mat-icon *ngIf="appSource==='enterprise'">remove</mat-icon>
+                                        <mat-icon *ngIf="appSource==='open'">highlight_off</mat-icon>
+                                      </button>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <button class="response-buttons" [ngClass]="(appSource==='open')?'response-black-button':'response-color-button'" mat-mini-fab matTooltip="Add Response" (click)="addIntentResponseDetailsToStory('response', ind+1)">
+                                        <mat-icon *ngIf="appSource==='enterprise'">add</mat-icon>
+                                        <mat-icon *ngIf="appSource==='open'">add_circle_outline</mat-icon>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-8">
+                                  <mat-form-field class="response-textbox">
+                                    <textarea matInput id="response_text_{{ind}}" class="response_text" (keydown)="handleSpacebar($event)" (keydown.enter)="$event.preventDefault()" (blur)="validateResponseInput(ind, $event)" formControlName="value" [matAutocomplete]="response_auto"></textarea>
+                                    <mat-autocomplete #response_auto="matAutocomplete" id="response_auto_complete">
+                                      <mat-option *ngFor="let option of responsesfilteredOptions" (mousedown)="onIntentResponseEntityChange($event, ind, option.response_name, option.response_text, 'response', intent_response_entity_arr[ind])" [value]="option.response_text">
+                                        <span>{{option.response_text}}</span> |
+                                        <small>{{option.response_name}}</small>
+                                      </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-error *ngIf="intent_response.get('value').hasError('invalid')">
+                                      Invalid Response
+                                    </mat-error>
+                                  </mat-form-field>
+                                  <input type="hidden" id="response_{{ind}}" formControlName="key">
+                                </div>
+                              </div>
+                            </div>
+                        
+                            <div id="collapseResponse_{{ind}}" class="collapse" attr.aria-labelledby="headingResponse_{{ind}}" attr.data-parent="#accordion-response-{{ind}}">
+                              <div class="card-body">
+                                <div class="entities-box">
+                                  <mat-chip-list>
+                                    <mat-chip color="warn" selected *ngFor="let entity of intent_response_entity_arr[ind]; let ind_ent = index" [selectable]="selectable" [removable]="removable" (removed)="removeEntityFromIntentResponse(ind, ind_ent)">
+                                      {{entity}}
+                                    </mat-chip>
+                                  </mat-chip-list>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <hr />
+            <div class="row story-buttons-box">
+              <div class="col-md-6 text-left add-intent-button">
+                <button  mat-mini-fab [ngClass]="(appSource==='open')?'add-intent-black':'add-intent-color'" matTooltip="Add Intent" (click)="addIntentToStory()">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+              <div class="col-md-6 text-right add-response-button">
+                <button  mat-mini-fab [ngClass]="(appSource==='open')?'add-response-black':'add-response-color'" [disabled]="disable_response" matTooltip="Add Response" (click)="addResponseToStory()">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="column result">
+  <span>Form Validity and Values</span><br />
+  <span>Form Validity: {{storyForm.valid}}</span><br />
+  <span>Form Value: {{storyForm.value | json}}</span>
+</div> -->

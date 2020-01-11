@@ -1,0 +1,90 @@
+<div class="grievance-container">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-form-field>
+        <input
+          matInput
+          (keyup)="applyGrievanceFilter($event.target.value)"
+          placeholder="Filter Grievances"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div *ngIf="grievance_json.length === 0" class="row empty-grievance">
+    <div class="col-md-12">
+      <div class="alert alert-info">
+        <strong>Info!</strong> Currently there are no grievance.
+      </div>
+    </div>
+  </div>
+  <div class="row grievance-table-container">
+    <div class="col-md-12">
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="grievanceDataSource">
+          <ng-container matColumnDef="complainant_name">
+            <th mat-header-cell *matHeaderCellDef>Complainant Name</th>
+            <td mat-cell *matCellDef="let grievance">
+              {{ grievance.complainant_name }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ministry_department">
+            <th mat-header-cell *matHeaderCellDef>Ministry Department</th>
+            <td mat-cell *matCellDef="let grievance">
+              {{ grievance.ministry_department }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="grievance_issue">
+            <th mat-header-cell *matHeaderCellDef>Grievance Issue</th>
+            <td mat-cell *matCellDef="let grievance">
+              {{ grievance.grievance_issue }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="complainant_city">
+            <th mat-header-cell *matHeaderCellDef>City</th>
+            <td mat-cell *matCellDef="let grievance">
+              {{ grievance.complainant_city }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="complainant_mobile">
+            <th mat-header-cell *matHeaderCellDef>Mobile</th>
+            <td mat-cell *matCellDef="let grievance">
+              {{ grievance.complainant_mobile }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="complainant_email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let grievance">
+              {{ grievance.complainant_email }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="icon">
+            <th mat-header-cell *matHeaderCellDef>Details</th>
+            <td mat-cell *matCellDef="let grievance">
+              <button mat-icon-button (click)="openGrievanceChat(grievance.sender_id)">
+                <mat-icon>details</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="grievanceDisplayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: grievanceDisplayedColumns"
+          ></tr>
+        </table>
+
+        <mat-paginator
+          [pageSizeOptions]="[10, 15, 20]"
+          showFirstLastButtons
+          (page)="getGrievancePaginatorData($event)"
+        ></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
