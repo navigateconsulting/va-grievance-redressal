@@ -55,8 +55,8 @@ and after that complete docker-compose installation by following [link](https://
 
 use below commands to clone the github repo to local machine or server.
     
-    git clone https://github.com/navigateconsulting/virtual-assistant.git
-    cd virtual-assistant
+    git clone https://github.com/navigateconsulting/va-grievance-redressal.git
+    cd va-grievance-redressal
     docker-compose build
     docker-compose up
     
