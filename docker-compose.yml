@@ -68,10 +68,10 @@ services:
     depends_on:
       - mongodb
 
-  # ui_trainer:
-  #   container_name: ui_trainer
-  #   build: './ui-trainer'
-  #   ports:
-  #     - "8080:80"
-  #   depends_on:
-  #     - api_gateway
+  ui_trainer:
+    container_name: ui_trainer
+    build: './ui-trainer'
+    ports:
+      - "8080:80"
+    depends_on:
+      - api_gateway
