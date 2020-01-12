@@ -23,13 +23,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.showTrainerOrDeploy = 'both';
-    this.headerService.invokeEvent.subscribe(value => {
-      if (value) {
-        this.showTrainerOrDeploy = value;
-      } else {
-        this.showTrainerOrDeploy = 'both';
-      }
-    });
+//     this.headerService.invokeEvent.subscribe(value => {
+//       if (value) {
+//         this.showTrainerOrDeploy = value;
+//       } else {
+//         this.showTrainerOrDeploy = 'both';
+//       }
+//     });
   }
 
   refreshDB() {
