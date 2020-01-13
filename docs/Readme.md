@@ -6,15 +6,35 @@ Virtual Assistant is build using following open source components.
 - Python API gateway - connecting to rasa for deploying and persisting training data
 - Mongodb - for storing training data and editing training data
 
-### Using Rasa
+### How To Get Started
 
-We use rasa 1.0 (combined repo for nlu + core) as a ML framework to train and deploy chat bots. 
-We would keep updating the code base to support latest versions of rasa.  
+1. Use below commands to clone the github repo to local machine or server.
+    
+    git clone https://github.com/navigateconsulting/va-grievance-redressal.git
+    cd va-grievance-redressal
+    docker-compose build
+    docker-compose up
+    
+Docker containers would be using ports 5055, 5005, 27017, 8080 for VA components. Ensure these ports are free.
 
-We intent to support all features provided by rasa framework, in case you find any feature missing please report to us.
+2. Once the application is made available on http://localhost:8080/home/grievance-app , on the header you will find an option for Deploy once you click the menu button. Follow the screenshots attached below:
 
-## 1. Installation 
-   Installation instructions [click here](installation/Readme.md)
-
-## 2. Usage
-   Usage instructions : [click here](usage/Readme.md)
+<div align="center" >
+  <img src="docs/assets/grievance_deploy_1.png">
+</div>
+<br />
+<div align="center" >
+  <img src="docs/assets/grievance_deploy_2.png">
+</div>
+<br />
+<div align="center" >
+  <img src="docs/assets/grievance_deploy_3.png">
+</div>
+<br />
+<div align="center" >
+  <img src="docs/assets/grievance_deploy_4.png">
+</div>
+<br />
+<div align="center" >
+  <img src="docs/assets/grievance_deploy_5.png">
+</div>
