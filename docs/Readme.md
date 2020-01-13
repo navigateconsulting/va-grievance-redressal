@@ -20,21 +20,21 @@ Docker containers would be using ports 5055, 5005, 27017, 8080 for VA components
 2. Once the application is made available on http://localhost:8080/home/grievance-app , on the header you will find an option for Deploy once you click the menu button. Follow the screenshots attached below:
 
 <div align="center" >
-  <img src="docs/assets/grievance_deploy_1.png">
+  <img src="/docs/assets/grievance_deploy_1.png">
 </div>
 <br />
 <div align="center" >
-  <img src="docs/assets/grievance_deploy_2.png">
+  <img src="/docs/assets/grievance_deploy_2.png">
 </div>
 <br />
 <div align="center" >
-  <img src="docs/assets/grievance_deploy_3.png">
+  <img src="/docs/assets/grievance_deploy_3.png">
 </div>
 <br />
 <div align="center" >
-  <img src="docs/assets/grievance_deploy_4.png">
+  <img src="/docs/assets/grievance_deploy_4.png">
 </div>
 <br />
 <div align="center" >
-  <img src="docs/assets/grievance_deploy_5.png">
+  <img src="/docs/assets/grievance_deploy_5.png">
 </div>
